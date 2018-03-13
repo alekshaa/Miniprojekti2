@@ -22,12 +22,14 @@ public class Miniprojekti2Application {
 //			viestirepo.deleteAll();
             Kayttaja a = new Kayttaja("satu", "salasana");
 
-            kayttajarepo.save(a);
-            Viesti c = new Viesti("Minulla on paljon töitä", "Työt", "työAihealue");
 
+            Viesti c = new Viesti("Minulla on paljon töitä", "Työt", "työAihealue");
             c.setKayttaja(a);
 
+            a.asetaOmiinViesteihin(c);
+
             viestirepo.save(c);
+            kayttajarepo.save(a);
 		};
 	}
 

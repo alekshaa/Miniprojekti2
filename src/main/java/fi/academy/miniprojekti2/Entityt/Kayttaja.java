@@ -12,7 +12,7 @@ public class Kayttaja {
     @Column(nullable = false, unique = true)
     private String kayttajanimi;
     private String salasana;
-//    private List<String> aihealueet;
+
     @JsonIgnore
     @OneToMany(mappedBy = "kayttaja")
     private List<Viesti>omatviestit;
@@ -25,7 +25,9 @@ public class Kayttaja {
     public Kayttaja() {
     }
 
-
+    public void asetaOmiinViesteihin(Viesti viesti) {
+        omatviestit.add(viesti);
+    }
 
     public int getId() {
         return id;
@@ -51,7 +53,6 @@ public class Kayttaja {
         this.salasana = salasana;
     }
 
-
     public List<Viesti> getOmatviestit() {
         return omatviestit;
     }
@@ -59,4 +60,5 @@ public class Kayttaja {
     public void setOmatviestit(List<Viesti> omatviestit) {
         this.omatviestit = omatviestit;
     }
+
 }
