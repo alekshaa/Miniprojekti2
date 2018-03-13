@@ -1,4 +1,7 @@
 package fi.academy.miniprojekti2.Repot;
 
-public interface Kayttajarepo {
+import fi.academy.miniprojekti2.Entityt.Kayttaja;
+import org.springframework.data.repository.CrudRepository;
+
+public interface Kayttajarepo extends CrudRepository<Kayttaja, Integer> {
 }
