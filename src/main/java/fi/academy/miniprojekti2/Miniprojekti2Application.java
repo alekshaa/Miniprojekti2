@@ -19,17 +19,19 @@ public class Miniprojekti2Application {
 	@Bean
 	CommandLineRunner luoViestit(Viestirepo viestirepo, Kayttajarepo kayttajarepo) {
 		return (args) -> {
-//			viestirepo.deleteAll();
             Kayttaja a = new Kayttaja("satu", "salasana");
-
+			kayttajarepo.save(a);
 
             Viesti c = new Viesti("Minulla on paljon töitä", "Työt", "työAihealue");
             c.setKayttaja(a);
 
-            a.asetaOmiinViesteihin(c);
+			viestirepo.save(c);
 
-            viestirepo.save(c);
+            a.asetaOmiinViesteihin(c);
             kayttajarepo.save(a);
+
+
+
 		};
 	}
 
