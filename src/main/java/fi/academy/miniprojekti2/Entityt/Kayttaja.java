@@ -1,9 +1,9 @@
 package fi.academy.miniprojekti2.Entityt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Kayttaja {
@@ -12,9 +12,10 @@ public class Kayttaja {
     @Column(nullable = false, unique = true)
     private String kayttajanimi;
     private String salasana;
-    private List<String> aihealueet;
+//    private List<String> aihealueet;
+    @JsonIgnore
     @OneToMany(mappedBy = "kayttaja")
-    private Set<Viesti>omatviestit=new HashSet<Viesti>();
+    private List<Viesti>omatviestit;
 
     public Kayttaja(String kayttajanimi, String salasana) {
         this.kayttajanimi = kayttajanimi;
@@ -24,11 +25,7 @@ public class Kayttaja {
     public Kayttaja() {
     }
 
-    public Kayttaja(String kayttajanimi, String salasana, List<String> aihealueet) {
-        this.kayttajanimi = kayttajanimi;
-        this.salasana = salasana;
-        this.aihealueet = aihealueet;
-    }
+
 
     public int getId() {
         return id;
@@ -54,19 +51,12 @@ public class Kayttaja {
         this.salasana = salasana;
     }
 
-    public List<String> getAihealueet() {
-        return aihealueet;
-    }
 
-    public void setAihealueet(List<String> aihealueet) {
-        this.aihealueet = aihealueet;
-    }
-
-    public Set<Viesti> getOmatviestit() {
+    public List<Viesti> getOmatviestit() {
         return omatviestit;
     }
 
-    public void setOmatviestit(Set<Viesti> omatviestit) {
+    public void setOmatviestit(List<Viesti> omatviestit) {
         this.omatviestit = omatviestit;
     }
 }

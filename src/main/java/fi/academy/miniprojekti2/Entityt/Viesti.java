@@ -3,7 +3,7 @@ package fi.academy.miniprojekti2.Entityt;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+@Entity
 public class Viesti {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
@@ -12,10 +12,18 @@ public class Viesti {
     private String teksti;
     private String otsikko;
     private String aihealue;
-    @ManyToOne(optional = false)
+
+    @ManyToOne
+    @JoinColumn(name = "kayttaja")
     private Kayttaja kayttaja;
 
     public Viesti() {
+    }
+
+    public Viesti(String teksti, String otsikko, String aihealue) {
+        this.teksti = teksti;
+        this.otsikko = otsikko;
+        this.aihealue = aihealue;
     }
 
     public Viesti(String teksti, String otsikko, String aihealue, Kayttaja kayttaja) {
