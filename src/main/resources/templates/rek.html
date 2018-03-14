@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: site-head">
     <meta charset="UTF-8"/>
     <title>Rekisteröityminen</title>
 </head>
 <body>
+<div th:replace="fragments/header :: siteheader"/>
+<div id="rekisteroidy">
 <h1>Rekisteröidy käyttäjäksi</h1>
 
 <form th:action="@{/lisaakayttaja}" method="post">
@@ -24,6 +26,7 @@
 
 </form>
 
+</div>
 
 <table>
     <tr><th>Käyttäjänimi</th>

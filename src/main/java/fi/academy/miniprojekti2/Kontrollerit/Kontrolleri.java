@@ -55,4 +55,9 @@ public class Kontrolleri {
         model.addAttribute("uusiViesti", new Viesti());
         return "liikunta";
     }
+
+    @GetMapping("/rekonnistui")
+    public String viesti() {
+        return "rekonnistui";
+    }
 }

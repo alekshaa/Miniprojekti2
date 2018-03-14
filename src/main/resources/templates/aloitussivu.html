@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:include="fragments/header :: site-head">
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <link rel="stylesheet" href="../static/tyylit.css" th:href="@{tyylit.css}"/>
 </head>
 <body>
-<h1>Pitääkö olla huolissaan?</h1>
+<div th:replace="fragments/header :: siteheader"/>
+<!--<h1>Pitääkö olla huolissaan?</h1>-->
 <div class="sisältö">
     <div class="vasen">
         <h2>Huolen kohteet</h2>
