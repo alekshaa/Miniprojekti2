@@ -1,17 +1,29 @@
 package fi.academy.miniprojekti2.Entityt;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Viesti {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column(nullable = false)
     private LocalDate luontiaika = LocalDate.now();
     private String teksti;
     private String otsikko;
     private String aihealue;
+    private String vastaus;
+//    private List<String> vastaukset = new ArrayList<>();
+
+//    @OneToOne(mappedBy = "mihinVastattu", fetch = FetchType.EAGER)
+
+//    @ManyToOne
+//    @JoinColumn
+//    @Null
+//    Viesti mihinVastattu;
 
     @ManyToOne
     @JoinColumn(name = "kayttaja")
@@ -33,11 +45,11 @@ public class Viesti {
         this.kayttaja = kayttaja;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,4 +92,28 @@ public class Viesti {
     public void setKayttaja(Kayttaja kayttaja) {
         this.kayttaja = kayttaja;
     }
+
+    public String getVastaus() {
+        return vastaus;
+    }
+
+    public void setVastaus(String vastaus) {
+        this.vastaus = vastaus;
+    }
+
+//    public List<String> getVastaukset() {
+//        return vastaukset;
+//    }
+//
+//    public void setVastaukset(List<String> vastaukset) {
+//        this.vastaukset = vastaukset;
+//    }
+//
+//    public Viesti getMihinVastattu() {
+//        return mihinVastattu;
+//    }
+//
+//    public void setMihinVastattu(Viesti mihinVastattu) {
+//        this.mihinVastattu = mihinVastattu;
+//    }
 }

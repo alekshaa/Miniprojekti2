@@ -29,9 +29,6 @@ public class Miniprojekti2Application {
 
             a.asetaOmiinViesteihin(c);
             kayttajarepo.save(a);
-
-
-
 		};
 	}
 
