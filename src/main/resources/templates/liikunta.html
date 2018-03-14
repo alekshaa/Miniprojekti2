@@ -13,6 +13,9 @@
             <td th:text="${toimi.otsikko}"></td>
             <td th:text="${toimi.teksti}"></td>
             <td th:text="${toimi.luontiaika}"></td>
+            <td th:text="${toimi.aihealue}"></td>
+            <td th:text="${toimi.kayttaja} ? ${toimi.kayttaja.kayttajanimi} : ''"></td>
+            <!--<td th:text="${toimi.kayttaja.kayttajanimi()}"></td>-->
             <!--<td th:text="${toimi.getKayttaja().getKayttajanimi()}"></td>-->
             <td ><a th:href="'/muokkaa?id='+${toimi.id}"><button>Vastaa</button></a></td>
         </tr>
@@ -20,10 +23,22 @@
 </div>
 <div th:class="kommentti">
     <form action="#" th:action="@{/lisattyLiikunta}" th:object="${uusiViesti}" method="post">
+        Käyttäjä: <input th:text="${uusiViesti.kayttaja}"/><br>
+        Käyttäjä: <input th:text="${uusiViesti.kayttaja} ? *{kayttaja.kayttajanimi} : ''"/><br>
         Otsikko: <input required="required" th:field="*{otsikko}"/><br>
+        Aihealue: <select name="aihe" th:field="*{aihealue}">
+        <option value ="Liikunta">Liikunta</option>
+        <option value ="Koti">Koti</option>
+        <option value ="Ruoka">Ruoka</option>
+        <option value ="Autot">Autot</option>
+
+    </select><br>
         Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
         <button>Lähetä aihe</button>
     </form>
+
+    <button  ><a th:href= "@{/}">BÄKKII</a></button>
+
 </div>
 </body>
 </html>

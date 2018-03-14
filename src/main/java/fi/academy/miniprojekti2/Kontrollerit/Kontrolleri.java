@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,10 +26,19 @@ public class Kontrolleri {
         this.viestirepo = viestirepo;
     }
 
-    @RequestMapping("/")
-    public String avaaAloitussivu(Model model) {
-        model.addAttribute("otsikko","Hei" );
+    @GetMapping("/")
+    @Transactional
+    public String hakulomake(Model model) {
+        Viesti viesti = new Viesti();
+        model.addAttribute("viesti", viesti);
         return "aloitussivu";
+    }
+
+    @PostMapping("/haeviesti")
+    public String haeViesti(Viesti viesti, Model model) {
+        List<Viesti> viestit = viestirepo.haeViesti(viesti.getTeksti());
+        model.addAttribute("viesti", viestit);
+        return "haetutViestit";
     }
 
     @GetMapping("/liikunta")
@@ -73,4 +84,5 @@ public class Kontrolleri {
     public String viesti() {
         return "rekonnistui";
     }
+
 }
