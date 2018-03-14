@@ -22,17 +22,5 @@
 </form>
 
 </div>
-
-<table>
-    <tr><th>Käyttäjänimi</th>
-        <th>Salasana</th>
-    </tr>
-
-    <tr th:each="kayttajat: ${tulokset}" th:object="${kayttajat}">
-        <td th:text="*{kayttajanimi}"></td>
-        <td th:text="*{salasana}"></td>
-    </tr>
-</table>
-
 </body>
 </html>

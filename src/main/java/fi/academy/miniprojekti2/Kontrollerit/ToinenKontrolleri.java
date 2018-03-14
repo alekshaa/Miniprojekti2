@@ -31,15 +31,22 @@ public class ToinenKontrolleri {
 
     @PostMapping("/rekisterissa")
     public String lisaaKayttaja(Kayttaja käyttäjä, Model model) {
+        käyttäjä.kryptaaSalasana();
         kayttajarepo.save(käyttäjä);
         model.addAttribute("tulokset", kayttajarepo.findAll());
         return "rekonnistui";
     }
 
     @PostMapping("/kirjauduttu")
-    public String avaaAloitussivu(Model model) {
-        model.addAttribute("otsikko", "Hei");
-        return "rekisteroity";
+    public String avaaAloitussivu(Kayttaja käyttäjä, Model model) {
+        Kayttaja k = kayttajarepo.findByKayttajanimi(käyttäjä.getKayttajanimi());
+        käyttäjä.kryptaaSalasana(k.getSalt());
+        if(k != null && k.getSalasana().equals(käyttäjä.getSalasana())) {
+            model.addAttribute("otsikko", "Hei");
+            return "aloitussivu";
+        } else {
+            return "redirect:/kirjaudu";
+        }
     }
 
     //HUOM, logout-sivuun tarvitaan postmapping

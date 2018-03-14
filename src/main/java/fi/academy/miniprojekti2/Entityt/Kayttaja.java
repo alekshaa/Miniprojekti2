@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +53,7 @@ public class Kayttaja {
     }
 
     public void setSalasana(String salasana) {
-        this.salt = BCrypt.gensalt();
-        this.salasana = BCrypt.hashpw(salasana, this.salt);
+        this.salasana = salasana;
     }
 
     public List<Viesti> getOmatviestit() {
@@ -68,14 +64,21 @@ public class Kayttaja {
         this.omatviestit = omatviestit;
     }
 
-    public static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException {
-        SecureRandom sr = SecureRandom.getInstance("SHAP1PRNG", "SUN");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt.toString();
+    public String getSalt() {
+        return this.salt;
     }
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public void kryptaaSalasana() {
+        this.salt = BCrypt.gensalt();
+        this.salasana = BCrypt.hashpw(this.salasana, this.salt);
+    }
+
+    public void kryptaaSalasana(String suola) {
+        this.salt = suola;
+        this.salasana = BCrypt.hashpw(this.salasana, this.salt);
     }
 }
