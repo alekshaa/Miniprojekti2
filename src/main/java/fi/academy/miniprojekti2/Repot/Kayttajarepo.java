@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface Kayttajarepo extends CrudRepository<Kayttaja, Integer> {
 
     Kayttaja findByKayttajanimi(String kayttajanimi);
+
+    Kayttaja findAllByKayttajanimi(String kayttajanimi);
 }

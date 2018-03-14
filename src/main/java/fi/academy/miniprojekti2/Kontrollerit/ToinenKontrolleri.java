@@ -23,7 +23,7 @@ public class ToinenKontrolleri {
         return "rekisteroidy";
     }
 
-    @RequestMapping("/kirjaudu")
+    @RequestMapping("/")
     public String kirjauduSisaan(Model model) {
         model.addAttribute("tulokset", kayttajarepo.findAll());
         return "kirjaudu";
@@ -33,7 +33,7 @@ public class ToinenKontrolleri {
     public String lisaaKayttaja(Kayttaja käyttäjä, Model model) {
         käyttäjä.kryptaaSalasana();
         kayttajarepo.save(käyttäjä);
-        model.addAttribute("tulokset", kayttajarepo.findAll());
+        model.addAttribute("tulokset", kayttajarepo.findAllByKayttajanimi(käyttäjä.getKayttajanimi()));
         return "rekonnistui";
     }
 
@@ -48,6 +48,17 @@ public class ToinenKontrolleri {
             return "redirect:/kirjaudu";
         }
     }
+    @RequestMapping("/ulos")
+    public String kirjaaulos() {
+        return "redirect:/";
+    }
+
+    @PostMapping("/ulos")
+    public String kirjauduUlos(Model model) {
+        model.addAttribute("otsikko", "Hei");
+        return "redirect:/";
+    }
+
 
     //HUOM, logout-sivuun tarvitaan postmapping
 
