@@ -14,7 +14,7 @@
             <td th:text="${toimi.teksti}"></td>
             <td th:text="${toimi.luontiaika}"></td>
             <!--<td th:text="${toimi.getKayttaja().getKayttajanimi()}"></td>-->
-            <td><button>Vastaa</button></td>
+            <td ><a th:href="'/muokkaa?id='+${toimi.id}"><button>Vastaa</button></a></td>
         </tr>
     </table>
 </div>
