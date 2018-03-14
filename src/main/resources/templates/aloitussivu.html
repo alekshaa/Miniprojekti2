@@ -17,11 +17,19 @@
     </div>
     <div class="oikea">
         <h2>Huolen aiheet</h2>
+        <form th:action="@{/haeviesti}" th:object="${viesti}" th:method="post">
+            <h3>Hae viestejä</h3>
+            <input th:field="*{teksti}"/>
+            <input th:field="*{otsikko}"/>
+            <input th:field="*{aihealue}"/>
+            <input type="submit"/>
+        </form>
         <div>
             <div id="kommentinTiedot"><a>Käyttäjä</a><a id="aikaleima">Lähetetty</a></div><br>
             <div id="kommentinSisältö">
                 <span><b>Otsikko</b></span>
                 <br>
+
                 <br>
                 <span>Tekstiä paljon tai vähän. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam debitis dolor dolorum eos explicabo
                 inventore iure labore mollitia, pariatur placeat qui quisquam ratione reiciendis saepe sed voluptatibus! A
