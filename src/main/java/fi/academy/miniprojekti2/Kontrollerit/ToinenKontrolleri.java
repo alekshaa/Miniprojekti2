@@ -33,7 +33,7 @@ public class ToinenKontrolleri {
     public String lisaaKayttaja(Kayttaja käyttäjä, Model model) {
         kayttajarepo.save(käyttäjä);
         model.addAttribute("tulokset", kayttajarepo.findAll());
-        return "rekisteroity";
+        return "rekonnistui";
     }
 
     @PostMapping("/kirjauduttu")

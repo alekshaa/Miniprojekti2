@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:include="fragments/header :: site-head">
     <meta charset="UTF-8"/>
     <title>Rekisteröityminen</title>
 </head>
 <body>
+<div th:replace="fragments/header :: siteheader"/>
 <h1>Rekisteröidy käyttäjäksi</h1>
 
 <form th:action="@{/rekisterissa}" method="post">
@@ -13,6 +14,7 @@
     <br>
     Salasana:<br>
     <input type="password" name="salasana">
+    <br><br>
     <input type="submit" value="Liity käyttäjäksi!">
 
 </form>
