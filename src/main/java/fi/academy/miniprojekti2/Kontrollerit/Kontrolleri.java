@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class Kontrolleri {
@@ -33,6 +36,16 @@ public class Kontrolleri {
         model.addAttribute("uusiViesti", new Viesti());
         return "liikunta";
     }
+
+    @GetMapping("/muokkaa")
+    public String muokkaaViestia(@RequestParam(name = "id") int id, Model model) {
+        Optional<Viesti> etsitty = viestirepo.findById(id);
+        if (etsitty == null)
+            return "redirect:liikunta";
+        model.addAttribute("viesti", etsitty);
+        return "viestimuokkaus";
+    }
+
     @GetMapping("/ruoka")
     public String ruokaKeskustelu(Model model) {
         return "ruoka";
@@ -54,5 +67,10 @@ public class Kontrolleri {
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti", new Viesti());
         return "liikunta";
+    }
+
+    @GetMapping("/rekonnistui")
+    public String viesti() {
+        return "rekonnistui";
     }
 }

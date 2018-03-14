@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: site-head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: siteheader"/>
+
+<p>Rekisteröinti onnistui!</p>
+
+<a href="index.html" th:href="@{/}">Tästä etusivulle</a>
+
+</body>
+</html>

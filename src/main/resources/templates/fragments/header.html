@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/tyylit.css" th:href="@{tyylit.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <title>Title</title>
+
+
+</head>
+<body>
+<div th:fragment="siteheader" class="ylanavi">
+
+    <ul>
+        <li><p><b>PITÄÄKÖ OLLA HUOLISSAAN?</b></p></li>
+        <li><a href="aloitussivu.html" th:href="@{/}">Etusivu</a></li>
+        <li><a href="users/login.html" th:href="@{/users/login}">Kirjaudu sisään</a></li>
+        <li><a href="../rek.html" th:href="@{/index}">Rekisteröidy</a></li>
+
+    </ul>
