@@ -1,0 +1,45 @@
+h1 {
+    color: red;
+    text-align: center;
+    width: 100%;
+}
+
+.vasen {
+    padding: 5px;
+    border: 1px black solid;
+    margin: 5px;
+    float: left;
+}
+
+.oikea {
+    padding: 5px;
+    border: 1px;
+    margin: 5px;
+    overflow: auto;
+}
+
+.sisältö {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#kommentinTiedot {
+    padding: 5px;
+    border: 1px black solid;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#kommentinSisältö {
+    padding: 5px;
+    border: 1px black solid;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#aikaleima {
+    float: right;
+}

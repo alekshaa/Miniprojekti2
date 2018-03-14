@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/tyylit.css}">
+</head>
+<body>
+<h1>Liikunta</h1>
+<div>
+    <table><th>Otsikko</th><th>Kommentti</th><th>Lisätty</th>
+        <tr th:each="toimi: ${kaikkiViestit}">
+            <td th:text="${toimi.otsikko}"></td>
+            <td th:text="${toimi.teksti}"></td>
+            <td th:text="${toimi.luontiaika}"></td>
+            <!--<td th:text="${toimi.getKayttaja().getKayttajanimi()}"></td>-->
+            <td><button>Vastaa</button></td>
+        </tr>
+    </table>
+</div>
+<div th:class="kommentti">
+    <form action="#" th:action="@{/lisattyLiikunta}" th:object="${uusiViesti}" method="post">
+        Otsikko: <input required="required" th:field="*{otsikko}"/><br>
+        Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
+        <button>Lähetä aihe</button>
+    </form>
+</div>
+</body>
+</html>
