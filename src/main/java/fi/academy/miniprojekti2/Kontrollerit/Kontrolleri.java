@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
@@ -26,7 +25,7 @@ public class Kontrolleri {
         this.viestirepo = viestirepo;
     }
 
-    @GetMapping("/")
+    @GetMapping("/etusivu")
     @Transactional
     public String hakulomake(Model model) {
         Viesti viesti = new Viesti();

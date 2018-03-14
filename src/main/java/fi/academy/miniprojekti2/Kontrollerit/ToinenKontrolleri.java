@@ -2,12 +2,15 @@ package fi.academy.miniprojekti2.Kontrollerit;
 
 
 import fi.academy.miniprojekti2.Entityt.Kayttaja;
+import fi.academy.miniprojekti2.Entityt.Viesti;
 import fi.academy.miniprojekti2.Repot.Kayttajarepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.transaction.Transactional;
 
 @Controller
 public class ToinenKontrolleri {
@@ -37,12 +40,14 @@ public class ToinenKontrolleri {
         return "rekonnistui";
     }
 
-    @PostMapping("/kirjauduttu")
+    @PostMapping("/etusivu")
+    @Transactional
     public String avaaAloitussivu(Kayttaja käyttäjä, Model model) {
         Kayttaja k = kayttajarepo.findByKayttajanimi(käyttäjä.getKayttajanimi());
         käyttäjä.kryptaaSalasana(k.getSalt());
+        Viesti viesti = new Viesti();
+        model.addAttribute("viesti", viesti);
         if(k != null && k.getSalasana().equals(käyttäjä.getSalasana())) {
-            model.addAttribute("otsikko", "Hei");
             return "aloitussivu";
         } else {
             return "redirect:/kirjaudu";
@@ -52,19 +57,4 @@ public class ToinenKontrolleri {
     public String kirjaaulos() {
         return "redirect:/";
     }
-
-    @PostMapping("/ulos")
-    public String kirjauduUlos(Model model) {
-        model.addAttribute("otsikko", "Hei");
-        return "redirect:/";
-    }
-
-
-    //HUOM, logout-sivuun tarvitaan postmapping
-
-
-
-
-
-
 }
