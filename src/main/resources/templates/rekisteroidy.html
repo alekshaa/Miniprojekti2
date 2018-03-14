@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Rekisteröityminen</title>
+</head>
+<body>
+<h1>Rekisteröidy käyttäjäksi</h1>
+
+<form th:action="@{/rekisterissa}" method="post">
+    Käyttäjänimi:<br>
+    <input type="text" name="kayttajanimi">
+    <br>
+    Salasana:<br>
+    <input type="password" name="salasana">
+    <input type="submit" value="Liity käyttäjäksi!">
+
+</form>
+
+</body>
+</html>

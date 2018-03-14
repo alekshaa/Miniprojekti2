@@ -2,25 +2,19 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Rekisteröityminen</title>
+    <title>Kirjautuminen</title>
 </head>
 <body>
-<h1>Rekisteröidy käyttäjäksi</h1>
+<h1>Kirjaudu sisään</h1>
 
-<form th:action="@{/lisaakayttaja}" method="post">
+<form th:action="@{/kirjauduttu}" method="post">
     Käyttäjänimi:<br>
     <input type="text" name="kayttajanimi">
     <br>
     Salasana:<br>
     <input type="password" name="salasana">
     <br><br>
-
-    Valitse kiinnostuksen aiheet(tämä ei linkity mihinkään): <br>
-    <input type="checkbox" name="kiinnostus" value="Auto">Auto<br>
-    <input type="checkbox" name="kiinnostus" value="Liikunta">Liikunta<br>
-    <input type="checkbox" name="kiinnostus" value="Tyhja">Ei mikään edellisistä
-    <br><br>
-    <input type="submit" value="Liity käyttäjäksi!">
+    <input type="submit" value="Kirjaudu sisään">
 
 </form>
 

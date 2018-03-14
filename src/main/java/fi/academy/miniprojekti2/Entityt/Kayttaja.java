@@ -1,8 +1,12 @@
 package fi.academy.miniprojekti2.Entityt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,7 @@ public class Kayttaja {
     @Column(nullable = false, unique = true)
     private String kayttajanimi;
     private String salasana;
-    private String kiinnostus;
+    private String salt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "kayttaja")
@@ -22,13 +26,6 @@ public class Kayttaja {
     public Kayttaja(String kayttajanimi, String salasana) {
         this.kayttajanimi = kayttajanimi;
         this.salasana = salasana;
-    }
-
-
-    public Kayttaja(String kayttajanimi, String salasana, String kiinnostus) {
-        this.kayttajanimi = kayttajanimi;
-        this.salasana = salasana;
-        this.kiinnostus = kiinnostus;
     }
 
     public Kayttaja() {
@@ -59,7 +56,8 @@ public class Kayttaja {
     }
 
     public void setSalasana(String salasana) {
-        this.salasana = salasana;
+        this.salt = BCrypt.gensalt();
+        this.salasana = BCrypt.hashpw(salasana, this.salt);
     }
 
     public List<Viesti> getOmatviestit() {
@@ -70,4 +68,14 @@ public class Kayttaja {
         this.omatviestit = omatviestit;
     }
 
+    public static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException {
+        SecureRandom sr = SecureRandom.getInstance("SHAP1PRNG", "SUN");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt.toString();
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }

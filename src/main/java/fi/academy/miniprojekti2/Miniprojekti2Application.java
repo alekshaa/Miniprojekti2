@@ -20,7 +20,8 @@ public class Miniprojekti2Application {
 	CommandLineRunner luoViestit(Viestirepo viestirepo, Kayttajarepo kayttajarepo) {
 		return (args) -> {
             Kayttaja a = new Kayttaja("satu", "salasana");
-			kayttajarepo.save(a);
+
+            kayttajarepo.save(a);
 
             Viesti c = new Viesti("Minulla on paljon töitä", "Työt", "työAihealue");
             c.setKayttaja(a);
@@ -29,8 +30,6 @@ public class Miniprojekti2Application {
 
             a.asetaOmiinViesteihin(c);
             kayttajarepo.save(a);
-
-
 
 		};
 	}

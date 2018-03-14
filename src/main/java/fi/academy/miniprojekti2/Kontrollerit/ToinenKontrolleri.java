@@ -18,17 +18,31 @@ public class ToinenKontrolleri {
     @Autowired
     Kayttajarepo kayttajarepo;
 
-    @RequestMapping("/index")
-    public String haeKayttajat(Model model) {
-        model.addAttribute("tulokset", kayttajarepo.findAll());
-        return "rek";
+    @RequestMapping("/rekisteroidy")
+    public String rekisteroidy() {
+        return "rekisteroidy";
     }
 
-    @PostMapping("/lisaakayttaja")
-    public String lisaaKayttaja(Kayttaja käyttäjä) {
-        kayttajarepo.save(käyttäjä);
-        return "redirect:index";
+    @RequestMapping("/kirjaudu")
+    public String kirjauduSisaan(Model model) {
+        model.addAttribute("tulokset", kayttajarepo.findAll());
+        return "kirjaudu";
     }
+
+    @PostMapping("/rekisterissa")
+    public String lisaaKayttaja(Kayttaja käyttäjä, Model model) {
+        kayttajarepo.save(käyttäjä);
+        model.addAttribute("tulokset", kayttajarepo.findAll());
+        return "rekisteroity";
+    }
+
+    @PostMapping("/kirjauduttu")
+    public String avaaAloitussivu(Model model) {
+        model.addAttribute("otsikko", "Hei");
+        return "rekisteroity";
+    }
+
+    //HUOM, logout-sivuun tarvitaan postmapping
 
 
 
