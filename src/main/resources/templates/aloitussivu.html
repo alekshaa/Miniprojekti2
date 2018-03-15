@@ -11,18 +11,21 @@
 <div class="sisältö">
 <!--    <div class="vasen">
         <h2>Huolen kohteet</h2>
-        <a th:href="'/liikunta?id='+${'liikunta'}">Liikunta</a></br>
-        <a th:href="'/liikunta?id='+${'ruoka'}">Ruoka</a></br>
-        <a th:href="'/liikunta?id='+${'autot'}">Autot</a></br>
-        <a th:href="'/liikunta?id='+${'koti'}">Koti</a></br>
+<!--        <a th:href="'/aihealue?id='+${'liikunta'}">Liikunta</a></br>
+        <a th:href="'/aihealue?id='+${'ruoka'}">Ruoka</a></br>
+        <a th:href="'/aihealue?id='+${'autot'}">Autot</a></br>
+        <a th:href="'/aihealue?id='+${'koti'}">Koti</a></br>
     </div>-->
+
     <div class="oikea">
         <div style="float: right">
             <form th:action="@{/haeviesti}" th:object="${viesti}" th:method="post">
+                <!--<input th:type="hidden" th:field="${viesti}"/>-->
                 <input th:field="*{teksti}"/>
                 <button>Hae</button>
             </form>
         </div>
+
         <div class="keskio">
         <h2>Viimeisimmät huolen aiheet</h2>
       <!--  <div th:each="toimi : ${kaikkiViestit}">
@@ -48,7 +51,42 @@
                 </tr>
             </table>
         </div>
-        </div>
+<!--
+        <h2>Huolen aiheet</h2>
+        <div th:each="toimi : ${kaikkiViestit}">
+            <div id="kommentinTiedot">
+                <a th:text="*{toimi.kayttaja.kayttajanimi}"></a>
+                <a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a>
+            </div><br>
+            <div id="kommentinSisältö">
+                <span><b th:text="*{toimi.otsikko}"></b></span>
+                <a style="float: right" th:href="'/muokkaa?id='+${toimi.id}">
+                    <button>Vastaa</button>
+                </a>
+                <br>
+                <br>
+                <span th:text="*{toimi.teksti}"></span>
+                <br>
+                <br>
+                <b>Vastaus: </b>
+                <span th:text="*{toimi.vastaus}"></span>
+            </div>
+            <br>
+
+        </div>-->
+        <form th:action="@{/lisattyViesti2}" method="post">
+            Otsikko: <input required="required" th:field="${uusiViesti.otsikko}"/><br>
+            Käyttäjä: <input required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            Aihealue: <select name="aihe" th:field="${uusiViesti.aihealue}">
+                <option value="liikunta">Liikunta</option>
+                <option value="ruoka">Ruoka</option>
+                <option value="autot">Autot</option>
+                <option value="koti">Koti</option>
+            </select>
+            <br>
+            Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
+            <button>Lähetä aihe</button>
+        </form>
     </div>
 </div>
 </body>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/header :: site-head">
     <meta charset="UTF-8">
     <title>Sivun tarkoitus</title>
 </head>
 <body>
+<div th:replace="fragments/header :: siteheader"/>
 <h1>Tervetuloa!</h1>
 <p>Olet päätynyt erinomaiselle sivulle. Tämän keskustelufoorumin tarkoitus on pitää yllä Java-koodaajien mielenterveyttä
 niin, että aina tiukan paikan tullen voi tulla purkamaan huolia. Saat myös vastauksia muilta käyttäjiä, jolloin saat

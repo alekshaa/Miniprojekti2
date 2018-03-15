@@ -7,15 +7,14 @@ import fi.academy.miniprojekti2.Repot.Viestirepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +35,8 @@ public class Kontrolleri {
         Viesti viesti = new Viesti();
         model.addAttribute("viesti", viesti);
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
+        model.addAttribute("uusiViesti",new Viesti());
+        model.addAttribute("kayttaja",new Kayttaja());
         return "aloitussivu";
     }
 
@@ -83,57 +84,65 @@ public class Kontrolleri {
         return k;
     }
 
-//    @GetMapping("/liikunta")
-//    public String liikuntaKeskustelu(Model model) {
-//        model.addAttribute("kaikkiViestit", viestirepo.findAll());
-//        model.addAttribute("uusiViesti", new Viesti());
-//        return "liikunta";
-//    }
+    @RequestMapping("/aihealue")
+    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model) {
+        model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
+        Viesti uusiViest = new Viesti();
+        uusiViest.setAihealue(id);
+        model.addAttribute("uusiViesti", uusiViest);
+        model.addAttribute("kayttaja",new Kayttaja());
+        return "aihealue";
+    }
 
     @GetMapping("/muokkaa")
     public String muokkaaViestia(@RequestParam(name = "id") int id, Model model) {
         Optional<Viesti> etsitty = viestirepo.findById(id);
         if (!etsitty.isPresent())
-            return "redirect:liikunta";
+            return "redirect:aihealue";
         model.addAttribute("viesti", etsitty.get());
         return "viestimuokkaus";
     }
 
     @PostMapping("/muokkaus")
     public String muokataanViesti(Viesti viesti, Model model) {
-//        viestirepo.findById(viesti.getId()).get().getVastaukset().add(viesti.getTeksti().toString());
         viestirepo.findById(viesti.getId()).get().setVastaus(viesti.getTeksti().toString());
-//        viestirepo.findById(viesti.getId()).get().setTeksti(viesti.getTeksti().toString());
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
-//        model.addAttribute("kaikkiViestit", viestirepo.findAllMihinVastattuIsNull());
         model.addAttribute("uusiViesti", new Viesti());
-        return "liikunta";
+        return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
     }
 
-    @GetMapping("/ruoka")
-    public String ruokaKeskustelu(Model model) {
-        return "ruoka";
-    }
-    @GetMapping("/autot")
-    public String autotKeskustelu(Model model) {
-        return "autot";
-    }
-    @GetMapping("/koti")
-    public String kotiKeskustelu(Model model) {
-        return "koti";
+    @PostMapping("lisattyViesti")
+    public String liikunnanLisays(Kayttaja kayttaja, Viesti viesti, Model model){
+        kayttajarepo.save(kayttaja);
+        viesti.setKayttaja(kayttaja);
+        viestirepo.save(viesti);
+        model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(viesti.getAihealue()));
+        model.addAttribute("uusiViesti", new Viesti());
+        return "redirect:aihealue?id=" + viesti.getAihealue();
     }
 
-    @PostMapping("lisattyLiikunta")
-    public String liikunnanLisays(Viesti viesti, Model model){
+    @PostMapping("lisattyViesti2")
+    public String liikunnanLisays2(Kayttaja kayttaja, Viesti viesti, Model model){
+        kayttajarepo.save(kayttaja);
+        viesti.setKayttaja(kayttaja);
         viestirepo.save(viesti);
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti", new Viesti());
-        return "liikunta";
+        return "aloitussivu";
     }
 
     @GetMapping("/rekonnistui")
     public String viesti() {
         return "rekonnistui";
     }
+
+/*
+    @PostMapping("/haeviesti")
+    public String haeViesti(Viesti viesti, Model model) {
+        List<Viesti> viestit = viestirepo.haeViesti(viesti.getTeksti());
+        model.addAttribute("viesti",viestit);
+        return "hakutulokset";
+    }
+*/
 
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:include="fragments/header :: site-head">
     <meta charset="UTF-8"/>
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/static/css/tyylit.css}">
 </head>
 <body>
-
+<div th:replace="fragments/header :: siteheader"/>
 <table><th>Kaljapullo</th>
     <tr th:each="toimi: ${viesti}">
 
