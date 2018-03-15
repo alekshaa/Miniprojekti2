@@ -50,7 +50,7 @@ public class ToinenKontrolleri {
         if(k != null && k.getSalasana().equals(käyttäjä.getSalasana())) {
             return "aloitussivu";
         } else {
-            return "redirect:/kirjaudu";
+            return "redirect:/";
         }
     }
     @RequestMapping("/ulos")

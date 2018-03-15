@@ -1,3 +1,7 @@
+p, h1, h2, form {
+    font-family: "Times New Roman";
+}
+
 .ylanavi ul {
     list-style-type: none;
     margin: 0;
@@ -10,15 +14,13 @@
     float: left;
 }
 
-.ylanavi li p {
+.ylanavi p {
+    background-color: white;
     margin: fill;
-    color:white;
+    color:black;
     text-align: center;
-    font-size: 22px;
-    padding-top: 0px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 0px;
+    font-size: 40px;
+    padding-top: 10px;
     font-family: 'Shadows Into Light', cursive;
 }
 
@@ -26,11 +28,11 @@
     display: block;
     color: white;
     text-align: center;
-    padding-top: 28px;
+    padding-top: 16px;
     padding-left: 16px;
     padding-right: 16px;
-    padding-bottom: 0px;
-    /*padding: 14px 16px;*/
+    padding-bottom: 16px;
+    padding: 14px 16px;
     text-decoration: none;
 }
 
