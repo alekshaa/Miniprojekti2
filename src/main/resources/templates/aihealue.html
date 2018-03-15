@@ -40,16 +40,18 @@
 <div class="sisältö">
     <div class="vasen">
         <h2>Huolen kohteet</h2>
-        <a href="ruoka">Ruoka</a></br>
-        <a href="liikunta">Liikunta</a></br>
-        <a href="autot">Autot</a></br>
-        <a href="koti">Koti</a>
+        <a th:href="'/aihealue?id='+${'liikunta'}">Liikunta</a></br>
+        <a th:href="'/aihealue?id='+${'ruoka'}">Ruoka</a></br>
+        <a th:href="'/aihealue?id='+${'autot'}">Autot</a></br>
+        <a th:href="'/aihealue?id='+${'koti'}">Koti</a></br>
+        <br>
+        <a th:href="@{/etusivu}">ETUSIVU</a></br>
     </div>
     <div class="oikea">
-        <h2>Liikunnan huolet</h2>
+        <h2 th:text="|${aiheAlue} 'huolena?'|"></h2>
         <div th:each="toimi : ${kaikkiViestit}">
             <div id="kommentinTiedot">
-                <a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a>
+                <a th:text="*{toimi.kayttaja.kayttajanimi}"></a>
                 <a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a>
             </div><br>
             <div id="kommentinSisältö">
@@ -65,19 +67,15 @@
                 <b>Vastaus: </b>
                 <span th:text="*{toimi.vastaus}"></span>
             </div>
+            <br>
         </div>
-        <form th:action="@{/lisattyLiikunta}" th:object="${uusiViesti}" method="post">
-            Otsikko: <input required="required" th:field="*{otsikko}"/><br>
-            Aihealue: <select name="aihe" th:field="*{aihealue}">
-                <option value ="Liikunta">Liikunta</option>
-                <option value ="Koti">Koti</option>
-                <option value ="Ruoka">Ruoka</option>
-                <option value ="Autot">Autot</option>
-            </select><br>
-            Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
+        <form th:action="@{/lisattyViesti}" method="post">
+            Otsikko: <input required="required" th:field="${uusiViesti.otsikko}"/><br>
+            Käyttäjä: <input required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            <input th:type="hidden" th:field="${uusiViesti.aihealue}" />
+            Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
             <button>Lähetä aihe</button>
         </form>
-        <button  ><a th:href= "@{/}">BÄKKII</a></button>
     </div>
 </div>
 </body>

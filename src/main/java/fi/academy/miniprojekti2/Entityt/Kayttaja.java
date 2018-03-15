@@ -28,6 +28,10 @@ public class Kayttaja {
     public Kayttaja() {
     }
 
+    public Kayttaja(String kayttajanimi) {
+        this.kayttajanimi = kayttajanimi;
+    }
+
     public void asetaOmiinViesteihin(Viesti viesti) {
         omatviestit.add(viesti);
     }
