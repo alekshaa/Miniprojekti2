@@ -36,16 +36,7 @@ public class Kontrolleri {
     }
 
     @RequestMapping("/aihealue")
-    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Viesti viesti, Model model) {
-        System.out.println(id);
-        if (id.charAt(id.length()-1)=='1') {
-            model.addAttribute("kaikkiViestit", viestirepo.haeViesti(viesti.getTeksti()));
-            Viesti uusiViest = new Viesti();
-            uusiViest.setAihealue(id.substring(0,id.length()-2));
-            model.addAttribute("uusiViesti", uusiViest);
-            model.addAttribute("kayttaja",new Kayttaja());
-            return "aihealue";
-        }
+    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model) {
         model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
         Viesti uusiViest = new Viesti();
         uusiViest.setAihealue(id);
@@ -53,6 +44,16 @@ public class Kontrolleri {
         model.addAttribute("kayttaja",new Kayttaja());
         return "aihealue";
     }
+//
+//    @RequestMapping("/hakutulokset")
+//    public String hakuTulokset(@RequestParam(name = "id") String id, Model model) {
+//        model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
+//        Viesti uusiViest = new Viesti();
+//        uusiViest.setAihealue(id);
+//        model.addAttribute("uusiViesti", uusiViest);
+//        model.addAttribute("kayttaja",new Kayttaja());
+//        return "hakutulokset";
+//    }
 
     @GetMapping("/muokkaa")
     public String muokkaaViestia(@RequestParam(name = "id") int id, Model model) {
@@ -68,7 +69,7 @@ public class Kontrolleri {
         viestirepo.findById(viesti.getId()).get().setVastaus(viesti.getTeksti().toString());
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti", new Viesti());
-        return "aihealue";
+        return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
     }
 
     @PostMapping("lisattyViesti")
@@ -100,7 +101,7 @@ public class Kontrolleri {
     public String haeViesti(Viesti viesti, Model model) {
         List<Viesti> viestit = viestirepo.haeViesti(viesti.getTeksti());
         model.addAttribute("viesti",viestit);
-        return "redirect:aihealue?id=" + viestit.get(0).getAihealue() + "1";
+        return "hakutulokset";
     }
 
 }
