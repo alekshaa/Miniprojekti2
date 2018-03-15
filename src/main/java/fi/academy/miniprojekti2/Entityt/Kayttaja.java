@@ -1,6 +1,7 @@
 package fi.academy.miniprojekti2.Entityt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Kayttaja {
     @Column(nullable = false, unique = true)
     private String kayttajanimi;
     private String salasana;
-    private String kiinnostus;
+    private String salt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "kayttaja")
@@ -22,13 +23,6 @@ public class Kayttaja {
     public Kayttaja(String kayttajanimi, String salasana) {
         this.kayttajanimi = kayttajanimi;
         this.salasana = salasana;
-    }
-
-
-    public Kayttaja(String kayttajanimi, String salasana, String kiinnostus) {
-        this.kayttajanimi = kayttajanimi;
-        this.salasana = salasana;
-        this.kiinnostus = kiinnostus;
     }
 
     public Kayttaja() {
@@ -70,4 +64,21 @@ public class Kayttaja {
         this.omatviestit = omatviestit;
     }
 
+    public String getSalt() {
+        return this.salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public void kryptaaSalasana() {
+        this.salt = BCrypt.gensalt();
+        this.salasana = BCrypt.hashpw(this.salasana, this.salt);
+    }
+
+    public void kryptaaSalasana(String suola) {
+        this.salt = suola;
+        this.salasana = BCrypt.hashpw(this.salasana, this.salt);
+    }
 }

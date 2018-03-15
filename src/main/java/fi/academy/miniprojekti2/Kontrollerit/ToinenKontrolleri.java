@@ -2,12 +2,15 @@ package fi.academy.miniprojekti2.Kontrollerit;
 
 
 import fi.academy.miniprojekti2.Entityt.Kayttaja;
+import fi.academy.miniprojekti2.Entityt.Viesti;
 import fi.academy.miniprojekti2.Repot.Kayttajarepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.transaction.Transactional;
 
 @Controller
 public class ToinenKontrolleri {
@@ -18,21 +21,40 @@ public class ToinenKontrolleri {
     @Autowired
     Kayttajarepo kayttajarepo;
 
-    @RequestMapping("/index")
-    public String haeKayttajat(Model model) {
+    @RequestMapping("/rekisteroidy")
+    public String rekisteroidy() {
+        return "rekisteroidy";
+    }
+
+    @RequestMapping("/")
+    public String kirjauduSisaan(Model model) {
         model.addAttribute("tulokset", kayttajarepo.findAll());
-        return "rek";
+        return "kirjaudu";
     }
 
-    @PostMapping("/lisaakayttaja")
-    public String lisaaKayttaja(Kayttaja käyttäjä) {
+    @PostMapping("/rekisterissa")
+    public String lisaaKayttaja(Kayttaja käyttäjä, Model model) {
+        käyttäjä.kryptaaSalasana();
         kayttajarepo.save(käyttäjä);
-        return "redirect:index";
+        model.addAttribute("tulokset", kayttajarepo.findAllByKayttajanimi(käyttäjä.getKayttajanimi()));
+        return "rekonnistui";
     }
 
-
-
-
-
-
+    @PostMapping("/etusivu")
+    @Transactional
+    public String avaaAloitussivu(Kayttaja käyttäjä, Model model) {
+        Kayttaja k = kayttajarepo.findByKayttajanimi(käyttäjä.getKayttajanimi());
+        käyttäjä.kryptaaSalasana(k.getSalt());
+        Viesti viesti = new Viesti();
+        model.addAttribute("viesti", viesti);
+        if(k != null && k.getSalasana().equals(käyttäjä.getSalasana())) {
+            return "aloitussivu";
+        } else {
+            return "redirect:/kirjaudu";
+        }
+    }
+    @RequestMapping("/ulos")
+    public String kirjaaulos() {
+        return "redirect:/";
+    }
 }

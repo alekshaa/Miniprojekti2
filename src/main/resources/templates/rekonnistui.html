@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: site-head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: siteheader"/>
+
+<p>Rekisteröinti onnistui! <br> Tervetuloa palveluun, <p th:each="kayttajat: ${tulokset}" th:text="${kayttajat.kayttajanimi}"></p> </p>
+
+
+<a href="index.html" th:href="@{/}">Kirjaudu sisään </a>
+
+</body>
+</html>

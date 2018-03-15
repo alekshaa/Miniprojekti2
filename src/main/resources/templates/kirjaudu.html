@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: site-head">
+    <meta charset="UTF-8"/>
+    <title>Kirjautuminen</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: siteheader"/>
+<div id="rekisteroidy">
+<h1>Kirjaudu sisään</h1>
+
+<form th:action="@{/etusivu}" method="post">
+    Käyttäjänimi:<br>
+    <input type="text" name="kayttajanimi">
+    <br>
+    Salasana:<br>
+    <input type="password" name="salasana">
+    <br><br>
+    <input type="submit" value="Kirjaudu sisään">
+
+</form>
+
+    <p>Etkö ole vielä käyttäjä?</p> <a href="index.html" th:href="@{/rekisteroidy}">Rekisteröidy täällä</a>
+
+</div>
+</body>
+</html>

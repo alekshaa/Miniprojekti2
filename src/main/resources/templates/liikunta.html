@@ -48,17 +48,36 @@
     <div class="oikea">
         <h2>Liikunnan huolet</h2>
         <div th:each="toimi : ${kaikkiViestit}">
-            <div id="kommentinTiedot"><a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a><a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a></div><br>
+            <div id="kommentinTiedot">
+                <a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a>
+                <a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a>
+            </div><br>
             <div id="kommentinSisältö">
                 <span><b th:text="*{toimi.otsikko}"></b></span>
+                <a style="float: right" th:href="'/muokkaa?id='+${toimi.id}">
+                    <button>Vastaa</button>
+                </a>
                 <br>
                 <br>
                 <span th:text="*{toimi.teksti}"></span>
                 <br>
+                <br>
+                <b>Vastaus: </b>
                 <span th:text="*{toimi.vastaus}"></span>
             </div>
-            <a th:href="'/muokkaa?id='+${toimi.id}"><button>Vastaa</button></a>
         </div>
+        <form th:action="@{/lisattyLiikunta}" th:object="${uusiViesti}" method="post">
+            Otsikko: <input required="required" th:field="*{otsikko}"/><br>
+            Aihealue: <select name="aihe" th:field="*{aihealue}">
+                <option value ="Liikunta">Liikunta</option>
+                <option value ="Koti">Koti</option>
+                <option value ="Ruoka">Ruoka</option>
+                <option value ="Autot">Autot</option>
+            </select><br>
+            Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
+            <button>Lähetä aihe</button>
+        </form>
+        <button  ><a th:href= "@{/}">BÄKKII</a></button>
     </div>
 </div>
 </body>
