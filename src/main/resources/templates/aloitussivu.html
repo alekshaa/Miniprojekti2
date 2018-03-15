@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/header :: site-head">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
@@ -8,13 +9,13 @@
 <div th:replace="fragments/header :: siteheader"/>
 <!--<h1>Pitääkö olla huolissaan?</h1>-->
 <div class="sisältö">
-    <div class="vasen">
+<!--    <div class="vasen">
         <h2>Huolen kohteet</h2>
         <a th:href="'/liikunta?id='+${'liikunta'}">Liikunta</a></br>
         <a th:href="'/liikunta?id='+${'ruoka'}">Ruoka</a></br>
         <a th:href="'/liikunta?id='+${'autot'}">Autot</a></br>
         <a th:href="'/liikunta?id='+${'koti'}">Koti</a></br>
-    </div>
+    </div>-->
     <div class="oikea">
         <div style="float: right">
             <form th:action="@{/haeviesti}" th:object="${viesti}" th:method="post">
@@ -22,15 +23,31 @@
                 <button>Hae</button>
             </form>
         </div>
-        <h2>Huolen aiheet</h2>
-        <div th:each="toimi : ${kaikkiViestit}">
-            <div id="kommentinTiedot"><a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a><a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a></div><br>
-            <div id="kommentinSisältö">
-                <span><b th:text="*{toimi.otsikko}"></b></span>
-                <br>
-                <br>
-                <span th:text="*{toimi.teksti}"></span>
+        <div class="keskio">
+        <h2>Viimeisimmät huolen aiheet</h2>
+      <!--  <div th:each="toimi : ${kaikkiViestit}">
+            <div id="kommentinTiedot"><p>Kirjoittaja: <a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a><a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a></p>
+            <p>Otsikko: <b th:text="*{toimi.otsikko}"></b></p>
+                <p>Viesti: <a th:text="*{toimi.teksti}"></a></p>
             </div>
+            </div>-->
+            <table id="viimeisimmat">
+                <div id="otsikot">
+                    <tr>
+                        <th>Kirjoittaja</th>
+                        <th>Otsikko</th>
+                        <th>Sisältö</th>
+                        <th>Päivämäärä</th>
+                    </tr>
+                </div>
+                <tr th:each="toimi: ${kaikkiViestit}">
+                    <td th:text="*{toimi.kayttaja.getKayttajanimi()}"></td>
+                    <td th:text="*{toimi.otsikko}"></td>
+                    <td th:text="*{toimi.teksti}"></td>
+                    <td id="aikaleima" th:text="*{toimi.luontiaika}"></td>
+                </tr>
+            </table>
+        </div>
         </div>
     </div>
 </div>

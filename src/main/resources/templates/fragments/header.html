@@ -14,12 +14,24 @@
 <body>
 <div th:fragment="siteheader" class="ylanavi">
 
-    <p><b>PITÄÄKÖ OLLA HUOLISSAAN?</b></p>
+    <p><b>PITÄÄKÖ OLLA HUOLISSAAN?<br>(JAVA EDITION)</br5></b></p>
     <ul>
         <li><a href="aloitussivu.html" th:href="@{/etusivu}">Etusivu</a></li>
         <!--<li><a href="users/login.html" th:href="@{/kirjaudu}">Kirjaudu sisään</a></li>-->
         <!--<li><a href="../rek.html" th:href="@{/rekisteroidy}">Rekisteröidy</a></li>-->
         <li><a href="/ulos.html" th:href="@{/ulos}">Kirjaudu ulos</a></li>
+        <div class="dropdown">
+        <li><a class="dropbtn">Huolenaiheet
+            <i class="fa fa-caret-down"></i></a></li>
+            <div class="dropdown-content">
+                <a th:href="'/liikunta?id='+${'liikunta'}">Liikunta</a>
+                <a th:href="'/liikunta?id='+${'ruoka'}">Ruoka</a>
+                <a th:href="'/liikunta?id='+${'autot'}">Autot</a>
+                <a th:href="'/liikunta?id='+${'koti'}">Koti</a>
+        </div>
+        </div>
+
     </ul>
+
     <form style="visibility: hidden" id ="logout-form" method="post" action="#" th:action="@{/logout}"><input type="submit" value="Logout"/></form>
 </div>

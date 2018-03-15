@@ -31,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/*").permitAll()
+              /*  .antMatchers("/etusivu").hasRole("USER")*/
                 .anyRequest().authenticated();
 
         http.formLogin()
