@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 @Controller
@@ -42,19 +44,25 @@ public class ToinenKontrolleri {
 
     @PostMapping("/etusivu")
     @Transactional
-    public String avaaAloitussivu(Kayttaja käyttäjä, Model model) {
+    public String avaaAloitussivu(Kayttaja käyttäjä, Model model, HttpServletResponse httpServletResponse) {
         Kayttaja k = kayttajarepo.findByKayttajanimi(käyttäjä.getKayttajanimi());
         käyttäjä.kryptaaSalasana(k.getSalt());
         Viesti viesti = new Viesti();
         model.addAttribute("viesti", viesti);
         if(k != null && k.getSalasana().equals(käyttäjä.getSalasana())) {
+            Cookie newCookie = new Cookie("kayttaja", ""+k.getId());
+            newCookie.setMaxAge(24 * 60 * 60);
+            httpServletResponse.addCookie(newCookie);
             return "aloitussivu";
         } else {
             return "redirect:/";
         }
     }
     @RequestMapping("/ulos")
-    public String kirjaaulos() {
+    public String kirjaaulos(HttpServletResponse httpServletResponse) {
+        Cookie newCookie = new Cookie("kayttaja", "");
+        newCookie.setMaxAge(24 * 60 * 60);
+        httpServletResponse.addCookie(newCookie);
         return "redirect:/";
     }
 }
