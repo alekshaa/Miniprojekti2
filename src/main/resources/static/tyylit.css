@@ -26,12 +26,13 @@
     display: block;
     color: white;
     text-align: center;
-    padding-top: 28px;
+    padding-top: 50px;
     padding-left: 16px;
     padding-right: 16px;
-    padding-bottom: 0px;
+    padding-bottom: 50px;
     /*padding: 14px 16px;*/
     text-decoration: none;
+    font-family: "Calibri Light";
 }
 
 .ylanavi li a:hover {
@@ -53,23 +54,36 @@ h1 {
 
 .vasen {
     padding: 5px;
-    border: 1px black solid;
-    margin: 5px;
+    /*border: 1px black solid;*/
     float: left;
+    background: rgb(51,51,51);
+    color: white;
+}
+.vasen h2 {
+    font-family: Calibri Light;
+}
+
+.vasen a {
+    color: white;
+}
+
+.keskio {
+    margin-left: 2%;
 }
 
 .oikea {
     padding: 5px;
     border: 1px;
-    margin: 5px;
+    margin: 5%;
     overflow: auto;
 }
 
 .sisältö {
     width: 90%;
-    margin-left: auto;
+    margin-left: 0%;
     margin-right: auto;
 }
+
 
 #kommentinTiedot {
     padding: 5px;
@@ -78,15 +92,33 @@ h1 {
     margin-left: auto;
     margin-right: auto;
 }
-
+/*
 #kommentinSisältö {
     padding: 5px;
     border: 1px black solid;
     width: 98%;
     margin-left: auto;
     margin-right: auto;
-}
+}*/
 
 #aikaleima {
     float: right;
+}
+
+body {
+    font-family: "Calibri";
+}
+
+h2 {
+    font-family: Calibri Light;
+}
+
+table#viimeisimmat {
+    width: 70%;
+    text-align: left;
+}
+
+#otsikot {
+    font-weight: bold;
+    font-size: 2em;
 }
