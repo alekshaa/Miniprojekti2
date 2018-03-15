@@ -1,5 +1,6 @@
 package fi.academy.miniprojekti2.Kontrollerit;
 
+import fi.academy.miniprojekti2.Entityt.Kayttaja;
 import fi.academy.miniprojekti2.Entityt.Viesti;
 import fi.academy.miniprojekti2.Repot.Kayttajarepo;
 import fi.academy.miniprojekti2.Repot.Viestirepo;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +47,40 @@ public class Kontrolleri {
     }
 
     @GetMapping("/liikunta")
-    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model) {
+    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model, HttpServletRequest request) {
+
+        Kayttaja k = haeKayttajaCookielistasta(request);
+
         model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
-        model.addAttribute("uusiViesti", new Viesti());
+        Viesti uusiViesti = new Viesti();
+        uusiViesti.setKayttaja(k);
+        model.addAttribute("uusiViesti", uusiViesti);
         return "liikunta";
+    }
+
+    private Kayttaja haeKayttajaCookielistasta(HttpServletRequest request) {
+        Kayttaja k = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c : cookies) {
+                if(c.getName().equals("kayttaja")) {
+                    String idstr = c.getValue();
+                    if (idstr != null && !idstr.trim().isEmpty()) {
+                        try {
+                            int kid = Integer.parseInt(idstr);
+                            Optional<Kayttaja> optk = kayttajarepo.findById(kid);
+                            if (optk.isPresent()) {
+                                k = optk.get();
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Cookie-virhe: käyttäjäid ei numero");
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return k;
     }
 
 //    @GetMapping("/liikunta")

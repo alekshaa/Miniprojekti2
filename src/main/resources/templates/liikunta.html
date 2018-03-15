@@ -68,6 +68,7 @@
         </div>
         <form th:action="@{/lisattyLiikunta}" th:object="${uusiViesti}" method="post">
             Otsikko: <input required="required" th:field="*{otsikko}"/><br>
+            <input th:type="hidden" th:field="*{kayttaja.id}"/>
             Aihealue: <select name="aihe" th:field="*{aihealue}">
                 <option value ="Liikunta">Liikunta</option>
                 <option value ="Koti">Koti</option>
