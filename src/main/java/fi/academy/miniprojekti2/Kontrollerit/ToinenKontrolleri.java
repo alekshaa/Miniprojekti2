@@ -65,4 +65,9 @@ public class ToinenKontrolleri {
         httpServletResponse.addCookie(newCookie);
         return "redirect:/";
     }
+
+    @RequestMapping("/tarkoitus")
+    public String siirryTarkoitussivulle() {
+        return "tarkoitus";
+    }
 }
