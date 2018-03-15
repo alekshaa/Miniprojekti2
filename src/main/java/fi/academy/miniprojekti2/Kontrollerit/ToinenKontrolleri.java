@@ -53,7 +53,7 @@ public class ToinenKontrolleri {
             Cookie newCookie = new Cookie("kayttaja", ""+k.getId());
             newCookie.setMaxAge(24 * 60 * 60);
             httpServletResponse.addCookie(newCookie);
-            return "aloitussivu";
+            return "redirect:/etusivu";
         } else {
             return "redirect:/";
         }

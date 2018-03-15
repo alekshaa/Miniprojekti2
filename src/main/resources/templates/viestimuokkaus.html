@@ -6,11 +6,14 @@
 </head>
 <body>
 <div th:replace="fragments/header :: siteheader"/>
-<h1>Muokkaus</h1>
+<h1>Vastaapa nyt huoleen, ni saadaan sekin ratkaistua!</h1>
 <form th:action="@{/muokkaus}" th:method="post" th:object="${viesti}">
-    <textarea th:field="*{teksti}"></textarea>
+    Tämä on vastaustasi kaipaava viesti:<br> <b th:text="*{teksti}"></b>
+    <br>
+    <textarea th:field="*{vastaus}" rows="5" cols="50"></textarea>
     <input th:type="hidden" th:field="*{id}"/>
-    <button>Muokkaa</button>
+    <br>
+    <button>Lähetä vastaus</button>
 </form>
 </body>
 </html>

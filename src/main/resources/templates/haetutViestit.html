@@ -7,15 +7,15 @@
 </head>
 <body>
 <div th:replace="fragments/header :: siteheader"/>
-<table><th>Kaljapullo</th>
+<h1>Kaljapullo</h1>
+<table class="viimeisimmat">
+    <tr><th>Käyttäjä</th><th>Otsikko</th><th>Teksti</th><th>Luontipäivä</th></tr>
     <tr th:each="toimi: ${viesti}">
-
+        <td th:text="${toimi.kayttaja.kayttajanimi}"></td>
+        <td th:text="${toimi.otsikko}"></td>
         <td th:text="${toimi.teksti}"></td>
-
+        <td th:text="${toimi.luontiaika}"></td>
     </tr>
 </table>
-
-
-
 </body>
 </html>

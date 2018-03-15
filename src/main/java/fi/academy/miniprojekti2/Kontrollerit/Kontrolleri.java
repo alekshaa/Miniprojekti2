@@ -105,11 +105,21 @@ public class Kontrolleri {
 
     @PostMapping("/muokkaus")
     public String muokataanViesti(Viesti viesti, Model model) {
+        viestirepo.findById(viesti.getId()).get().setVastaus(viesti.getVastaus());
+        viestirepo.save(viestirepo.findById(viesti.getId()).get());
+        model.addAttribute("kaikkiViestit", viestirepo.findAll());
+        model.addAttribute("uusiViesti", new Viesti());
+        model.addAttribute("kayttaja",new Kayttaja());
+        return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
+    }
+
+   /* @PostMapping("/muokkaus")
+    public String muokataanViesti(Viesti viesti, Model model) {
         viestirepo.findById(viesti.getId()).get().setVastaus(viesti.getTeksti().toString());
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti", new Viesti());
         return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
-    }
+    }*/
 
     @PostMapping("lisattyViesti")
     public String liikunnanLisays(Kayttaja kayttaja, Viesti viesti, Model model){

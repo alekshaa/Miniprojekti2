@@ -10,24 +10,22 @@
 <div class="sisältö">
 
     <div class="oikea">
-        <h2 th:text="|${aiheAlue} 'huolena?'|"></h2>
+        <h1 th:text="|${uusiViesti.aihealue} huolena?|"></h1>
+
+
         <div th:each="toimi : ${kaikkiViestit}">
             <div id="kommentinTiedot">
-                <a th:text="*{toimi.kayttaja.kayttajanimi}"></a>
-                <a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a>
-            </div><br>
-            <div id="kommentinSisältö">
-                <span><b th:text="*{toimi.otsikko}"></b></span>
-                <a style="float: right" th:href="'/muokkaa?id='+${toimi.id}">
+                <p>Käyttäjä: <a th:text="*{toimi.kayttaja.kayttajanimi}"></a><a style="float: right" th:href="'/muokkaa?id='+${toimi.id}">
                     <button>Vastaa</button>
-                </a>
-                <br>
-                <br>
-                <span th:text="*{toimi.teksti}"></span>
-                <br>
-                <br>
+                </a></p>
+                <p>Päivämäärä: <a th:text="*{toimi.luontiaika}">Lähetetty</a></p>
+                <p>Otsikko:  <b th:text="*{toimi.otsikko}"></b></p>
+
+                <p>Sisältö:   <a th:text="*{toimi.teksti}"></a></p>
+                <div th:if="${toimi.vastaus}">
                 <b>Vastaus: </b>
                 <span th:text="*{toimi.vastaus}"></span>
+                </div>
             </div>
             <br>
         </div>
@@ -44,13 +42,13 @@
             Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
 =======-->
         <form th:action="@{/lisattyViesti}" method="post">
-            Otsikko: <input required="required" th:field="${uusiViesti.otsikko}"/><br>
+            Otsikko: &emsp;&nbsp; <input class="input1" required="required" th:field="${uusiViesti.otsikko}"/><br>
             <input th:type="hidden" th:field="*{kayttaja.id}"/>
-            Käyttäjä: <input required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            Käyttäjä:&emsp;&nbsp; <input class="input3" required="required" th:field="${kayttaja.kayttajanimi}"/><br>
             <input th:type="hidden" th:field="${uusiViesti.aihealue}" />
-            Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
+            Kommentti: <textarea class="input2" required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
 
-            <button>Lähetä aihe</button>
+            <button class="nappi">Lähetä uusi huoli</button>
         </form>
     </div>
 </div>

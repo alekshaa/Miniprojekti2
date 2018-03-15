@@ -7,16 +7,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: siteheader"/>
-<!--<h1>Pitääkö olla huolissaan?</h1>-->
 <div class="sisältö">
-<!--    <div class="vasen">
-        <h2>Huolen kohteet</h2>
-<!--        <a th:href="'/aihealue?id='+${'liikunta'}">Liikunta</a></br>
-        <a th:href="'/aihealue?id='+${'ruoka'}">Ruoka</a></br>
-        <a th:href="'/aihealue?id='+${'autot'}">Autot</a></br>
-        <a th:href="'/aihealue?id='+${'koti'}">Koti</a></br>
-    </div>-->
-
     <div class="oikea">
         <div style="float: right">
             <form th:action="@{/haeviesti}" th:object="${viesti}" th:method="post">
@@ -27,7 +18,7 @@
         </div>
 
         <div class="keskio">
-        <h2>Viimeisimmät huolen aiheet</h2>
+        <h1>Viimeisimmät huolenaiheet<br></h1>
       <!--  <div th:each="toimi : ${kaikkiViestit}">
             <div id="kommentinTiedot"><p>Kirjoittaja: <a th:text="*{toimi.kayttaja.getKayttajanimi()}"></a><a id="aikaleima" th:text="*{toimi.luontiaika}">Lähetetty</a></p>
             <p>Otsikko: <b th:text="*{toimi.otsikko}"></b></p>
@@ -38,6 +29,7 @@
                 <div id="otsikot">
                     <tr>
                         <th>Kirjoittaja</th>
+                        <th>Aihealue</th>
                         <th>Otsikko</th>
                         <th>Sisältö</th>
                         <th>Päivämäärä</th>
@@ -45,12 +37,15 @@
                 </div>
                 <tr th:each="toimi: ${kaikkiViestit}">
                     <td th:text="*{toimi.kayttaja.getKayttajanimi()}"></td>
-                    <td th:text="*{toimi.otsikko}"></td>
-                    <td th:text="*{toimi.teksti}"></td>
-                    <td id="aikaleima" th:text="*{toimi.luontiaika}"></td>
+                    <td th:text="*{toimi.aihealue}"></td>
+                    <td style="min-width: 120px" th:text="*{toimi.otsikko}"></td>
+                    <td style="min-width: 200px" th:text="*{toimi.teksti}"></td>
+                    <td th:text="*{toimi.luontiaika}"></td>
                 </tr>
             </table>
         </div>
+        <br>
+        <br>
 <!--
         <h2>Huolen aiheet</h2>
         <div th:each="toimi : ${kaikkiViestit}">
@@ -74,18 +69,33 @@
             <br>
 
         </div>-->
-        <form th:action="@{/lisattyViesti2}" method="post">
-            Otsikko: <input required="required" th:field="${uusiViesti.otsikko}"/><br>
-            Käyttäjä: <input required="required" th:field="${kayttaja.kayttajanimi}"/><br>
-            Aihealue: <select name="aihe" th:field="${uusiViesti.aihealue}">
-                <option value="liikunta">Liikunta</option>
-                <option value="ruoka">Ruoka</option>
-                <option value="autot">Autot</option>
-                <option value="koti">Koti</option>
+        <!--<form th:action="@{/lisattyViesti2}" method="post">-->
+            <!--Otsikko: <input required="required" th:field="${uusiViesti.otsikko}"/><br>-->
+            <!--Käyttäjä: <input required="required" th:field="${kayttaja.kayttajanimi}"/><br>-->
+            <!--Aihealue: <select name="aihe" th:field="${uusiViesti.aihealue}">-->
+                <!--<option value="liikunta">Liikunta</option>-->
+                <!--<option value="ruoka">Ruoka</option>-->
+                <!--<option value="autot">Autot</option>-->
+                <!--<option value="koti">Koti</option>-->
+            <!--</select>-->
+            <!--<br>-->
+            <!--Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>-->
+            <!--<button>Lähetä aihe</button>-->
+        <!--</form>-->
+        <form th:action="@{/lisattyViesti}" method="post">
+            Otsikko: &emsp;&nbsp; <input class="input1" required="required" th:field="${uusiViesti.otsikko}"/><br>
+            <input th:type="hidden" th:field="*{kayttaja.id}"/>
+            Käyttäjä:&emsp;&nbsp; <input class="input3" required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            Aihealue: &nbsp;&nbsp;&nbsp; <select class="input1" name="aihe" th:field="${uusiViesti.aihealue}">
+            <option value="Tietoturva">Tietoturva</option>
+            <option value="Java">Java</option>
+            <option value="GIT">GIT</option>
+            <option value="Oppiminen">Oppiminen</option>
             </select>
             <br>
-            Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
-            <button>Lähetä aihe</button>
+            Kommentti: <textarea class="input2" required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
+
+            <button class="nappi">Lähetä uusi huoli</button>
         </form>
     </div>
 </div>
