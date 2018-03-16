@@ -31,12 +31,13 @@ public class Kontrolleri {
 
     @GetMapping("/etusivu")
     @Transactional
-    public String hakulomake(Model model) {
+    public String hakulomake(Model model, HttpServletRequest request) {
         Viesti viesti = new Viesti();
         model.addAttribute("viesti", viesti);
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti",new Viesti());
         model.addAttribute("kayttaja",new Kayttaja());
+        model.addAttribute("logannutKayttaja", haeKayttajaCookielistasta(request));
         return "aloitussivu";
     }
 
@@ -47,7 +48,7 @@ public class Kontrolleri {
         return "haetutViestit";
     }
 
-    @GetMapping("/liikunta")
+/*    @GetMapping("/liikunta")
     public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model, HttpServletRequest request) {
 
         Kayttaja k = haeKayttajaCookielistasta(request);
@@ -57,7 +58,7 @@ public class Kontrolleri {
         uusiViesti.setKayttaja(k);
         model.addAttribute("uusiViesti", uusiViesti);
         return "liikunta";
-    }
+    }*/
 
     private Kayttaja haeKayttajaCookielistasta(HttpServletRequest request) {
         Kayttaja k = null;
@@ -85,12 +86,13 @@ public class Kontrolleri {
     }
 
     @RequestMapping("/aihealue")
-    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model) {
+    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model, HttpServletRequest request) {
         model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
         Viesti uusiViest = new Viesti();
         uusiViest.setAihealue(id);
         model.addAttribute("uusiViesti", uusiViest);
         model.addAttribute("kayttaja",new Kayttaja());
+        model.addAttribute("logannutKayttaja", haeKayttajaCookielistasta(request));
         return "aihealue";
     }
 
@@ -123,8 +125,8 @@ public class Kontrolleri {
 
     @PostMapping("lisattyViesti")
     public String liikunnanLisays(Kayttaja kayttaja, Viesti viesti, Model model){
-        kayttajarepo.save(kayttaja);
-        viesti.setKayttaja(kayttaja);
+        Kayttaja kayttaja1 = kayttajarepo.findByKayttajanimi(kayttaja.getKayttajanimi());
+        viesti.setKayttaja(kayttaja1);
         viestirepo.save(viesti);
         model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(viesti.getAihealue()));
         model.addAttribute("uusiViesti", new Viesti());
@@ -133,8 +135,8 @@ public class Kontrolleri {
 
     @PostMapping("lisattyViesti2")
     public String liikunnanLisays2(Kayttaja kayttaja, Viesti viesti, Model model){
-        kayttajarepo.save(kayttaja);
-        viesti.setKayttaja(kayttaja);
+        Kayttaja kayttaja1 = kayttajarepo.findByKayttajanimi(kayttaja.getKayttajanimi());
+        viesti.setKayttaja(kayttaja1);
         viestirepo.save(viesti);
         model.addAttribute("kaikkiViestit", viestirepo.findAll());
         model.addAttribute("uusiViesti", new Viesti());

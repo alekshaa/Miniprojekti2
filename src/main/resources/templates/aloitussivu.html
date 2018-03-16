@@ -82,10 +82,10 @@
             <!--Kommentti: <textarea required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>-->
             <!--<button>Lähetä aihe</button>-->
         <!--</form>-->
-        <form th:action="@{/lisattyViesti}" method="post">
+        <form th:if="${logannutKayttaja}" th:action="@{/lisattyViesti}" method="post">
             Otsikko: &emsp;&nbsp; <input class="input1" required="required" th:field="${uusiViesti.otsikko}"/><br>
             <input th:type="hidden" th:field="*{kayttaja.id}"/>
-            Käyttäjä:&emsp;&nbsp; <input class="input3" required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            <input th:type="hidden" class="input3" required="required" th:field="${logannutKayttaja.kayttajanimi}"/>
             Aihealue: &nbsp;&nbsp;&nbsp; <select class="input1" name="aihe" th:field="${uusiViesti.aihealue}">
             <option value="Tietoturva">Tietoturva</option>
             <option value="Java">Java</option>

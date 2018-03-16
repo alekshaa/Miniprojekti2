@@ -41,10 +41,10 @@
             </select><br>
             Kommentti: <textarea required="required" th:type="text" th:field="*{teksti}"></textarea></br>
 =======-->
-        <form th:action="@{/lisattyViesti}" method="post">
+        <form th:if="${logannutKayttaja}" th:action="@{/lisattyViesti}" method="post">
             Otsikko: &emsp;&nbsp; <input class="input1" required="required" th:field="${uusiViesti.otsikko}"/><br>
             <input th:type="hidden" th:field="*{kayttaja.id}"/>
-            Käyttäjä:&emsp;&nbsp; <input class="input3" required="required" th:field="${kayttaja.kayttajanimi}"/><br>
+            <input th:type="hidden" class="input3" required="required" th:field="${logannutKayttaja.kayttajanimi}"/>
             <input th:type="hidden" th:field="${uusiViesti.aihealue}" />
             Kommentti: <textarea class="input2" required="required" th:type="text" th:field="${uusiViesti.teksti}"></textarea></br>
 
