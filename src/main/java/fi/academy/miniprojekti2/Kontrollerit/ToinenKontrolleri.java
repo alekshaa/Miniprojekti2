@@ -43,6 +43,9 @@ public class ToinenKontrolleri {
     @Transactional
     public String avaaAloitussivu(Kayttaja käyttäjä, Model model, HttpServletResponse httpServletResponse) {
         Kayttaja k = kayttajarepo.findByKayttajanimi(käyttäjä.getKayttajanimi());
+        if(k==null) {
+            return "redirect:/";
+        }
         käyttäjä.kryptaaSalasana(k.getSalt());
         Viesti viesti = new Viesti();
         model.addAttribute("viesti", viesti);

@@ -29,10 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
 
-        http.authorizeRequests()
-                .antMatchers("/*").permitAll()
-              /*  .antMatchers("/etusivu").hasRole("USER")*/
-                .anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
+//        http.authorizeRequests()
+//                .antMatchers("/*").permitAll()
+//              /*  .antMatchers("/etusivu").hasRole("USER")*/
+//                .anyRequest().authenticated();
 
         http.formLogin()
                 .permitAll()
