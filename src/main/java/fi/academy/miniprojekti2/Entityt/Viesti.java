@@ -1,10 +1,7 @@
 package fi.academy.miniprojekti2.Entityt;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Viesti {
@@ -16,14 +13,6 @@ public class Viesti {
     private String otsikko;
     private String aihealue;
     private String vastaus;
-//    private List<String> vastaukset = new ArrayList<>();
-
-//    @OneToOne(mappedBy = "mihinVastattu", fetch = FetchType.EAGER)
-
-//    @ManyToOne
-//    @JoinColumn
-//    @Null
-//    Viesti mihinVastattu;
 
     @ManyToOne
     @JoinColumn(name = "kayttaja")

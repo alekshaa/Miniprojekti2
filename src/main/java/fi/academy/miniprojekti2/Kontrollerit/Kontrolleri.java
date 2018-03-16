@@ -48,18 +48,6 @@ public class Kontrolleri {
         return "haetutViestit";
     }
 
-/*    @GetMapping("/liikunta")
-    public String liikuntaKeskustelu(@RequestParam(name = "id") String id, Model model, HttpServletRequest request) {
-
-        Kayttaja k = haeKayttajaCookielistasta(request);
-
-        model.addAttribute("kaikkiViestit", viestirepo.haeAihealueenViestit(id));
-        Viesti uusiViesti = new Viesti();
-        uusiViesti.setKayttaja(k);
-        model.addAttribute("uusiViesti", uusiViesti);
-        return "liikunta";
-    }*/
-
     private Kayttaja haeKayttajaCookielistasta(HttpServletRequest request) {
         Kayttaja k = null;
         Cookie[] cookies = request.getCookies();
@@ -115,16 +103,9 @@ public class Kontrolleri {
         return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
     }
 
-   /* @PostMapping("/muokkaus")
-    public String muokataanViesti(Viesti viesti, Model model) {
-        viestirepo.findById(viesti.getId()).get().setVastaus(viesti.getTeksti().toString());
-        model.addAttribute("kaikkiViestit", viestirepo.findAll());
-        model.addAttribute("uusiViesti", new Viesti());
-        return "redirect:aihealue?id=" + viestirepo.findById(viesti.getId()).get().getAihealue();
-    }*/
 
     @PostMapping("lisattyViesti")
-    public String liikunnanLisays(Kayttaja kayttaja, Viesti viesti, Model model){
+    public String aiheenLisays(Kayttaja kayttaja, Viesti viesti, Model model){
         Kayttaja kayttaja1 = kayttajarepo.findByKayttajanimi(kayttaja.getKayttajanimi());
         viesti.setKayttaja(kayttaja1);
         viestirepo.save(viesti);
@@ -148,13 +129,5 @@ public class Kontrolleri {
         return "rekonnistui";
     }
 
-/*
-    @PostMapping("/haeviesti")
-    public String haeViesti(Viesti viesti, Model model) {
-        List<Viesti> viestit = viestirepo.haeViesti(viesti.getTeksti());
-        model.addAttribute("viesti",viestit);
-        return "hakutulokset";
-    }
-*/
 
 }

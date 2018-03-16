@@ -17,9 +17,6 @@ import javax.transaction.Transactional;
 @Controller
 public class ToinenKontrolleri {
 
-/*@PostMapping("/rekisteroidy")
-    public ResponseEntity<?> rekisteroiKayttaja*/
-
     @Autowired
     Kayttajarepo kayttajarepo;
 
