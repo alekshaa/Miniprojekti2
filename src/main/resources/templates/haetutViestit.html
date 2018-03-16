@@ -15,6 +15,7 @@
         <td th:text="${toimi.otsikko}"></td>
         <td th:text="${toimi.teksti}"></td>
         <td th:text="${toimi.luontiaika}"></td>
+        <td><a th:href="'/aihealue?id='+${toimi.aihealue}">Linkki</a></td>
     </tr>
 </table>
 </body>
